@@ -1,0 +1,21 @@
+name: 'uwu'
+
+on: 
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+      - name: Build SDL
+        run: |-
+          brew install sdl2
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: 'sdl2-darwin-aarm64'
+          path: /opt/homebrew/Cellar/sdl2
