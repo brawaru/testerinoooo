@@ -12,10 +12,6 @@ jobs:
   extract:
     runs-on: ubuntu-22.04
     steps:
-      - name: 'Install 7-Zip'
-        run: |-
-          sudo apt update
-          sudo apt install p7zip-full
       - name: 'Download Modrinth App'
         run: |-
           echo "Download URL from: $DOWNLOAD_URL"
@@ -24,7 +20,7 @@ jobs:
           DOWNLOAD_URL: ${{ github.event.inputs.download-url }}
       - name: 'Extract the file'
         run: |-
-          7zip e installer.msi
+          7z e installer.msi
           mv Path "Modrinth App.exe"
       - name: 'Upload'
         uses: actions/upload-artifact@v4.3.3
