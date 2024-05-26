@@ -1,0 +1,30 @@
+name: 'extract modrinth app'
+
+on: 
+  workflow_dispatch:
+    inputs:
+      download-url:
+        type: text
+        required: true
+        description: URL to the installer
+
+jobs:
+  extract:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 'Download Modrinth App'
+        run: |-
+          echo "Download URL from: $DOWNLOAD_URL"
+          wget "$DOWNLOAD_URL" -O installer.msi
+        env:
+          DOWNLOAD_URL: ${{ github.event.inputs.download-url }}
+      - name: 'Extract the file'
+        run: |-
+          unzip installer.msi
+          mv Path "Modrinth App.exe"
+      - name: 'Upload'
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: 'Extracted file'
+          path: "Modrinth App.exe"
+        
