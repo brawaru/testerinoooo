@@ -15,13 +15,12 @@ jobs:
       - name: 'Download Modrinth App'
         run: |-
           echo "Download URL from: $DOWNLOAD_URL"
-          wget "$DOWNLOAD_URL" -O installer.msi
+          wget "$DOWNLOAD_URL" -O installer.exe
         env:
           DOWNLOAD_URL: ${{ github.event.inputs.download-url }}
       - name: 'Extract the file'
         run: |-
-          7z e installer.msi
-          mv Path "Modrinth App.exe"
+          7z x installer.exe "Modrinth App.exe"
       - name: 'Upload'
         uses: actions/upload-artifact@v4.3.3
         with:
